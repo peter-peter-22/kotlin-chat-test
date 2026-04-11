@@ -1,4 +1,4 @@
-package org.example.kotlinchattest
+package org.example.kotlinchattest.basic
 
 import org.springframework.context.annotation.Configuration
 import org.springframework.messaging.handler.annotation.MessageMapping
@@ -30,7 +30,9 @@ class GreetingController {
 @EnableWebSocketMessageBroker
 class WebSocketConfig : WebSocketMessageBrokerConfigurer {
     override fun configureMessageBroker(config: MessageBrokerRegistry) {
+        // Prefix of outgoing message endpoints
         config.enableSimpleBroker("/topic")
+        // Prefix of incoming message endpoints
         config.setApplicationDestinationPrefixes("/app")
     }
 

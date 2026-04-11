@@ -1,3 +1,31 @@
+### RabbitMQ
+The messages are routed inside the exchange, 
+which then routes them to the appropriate queue(s) 
+based on the binding keys. Each queue can have multiple consumers, 
+and messages are delivered to them in a round-robin fashion.
+
+- Exchange: A messaging channel, similar to topic.
+- Producer: A process that sends messages to an exchange. The messages have a routing key.
+- Queue: A storage for messages. Can be bound to routing key patterns, receives messages from the exchange those match the routing key patterns.
+- Binding: A relationship between an exchange and a queue, defined by a binding key pattern. Decides what messages a queue gets.
+- Consumer: A process that receives messages from a queue.
+
+#### Example scenario
+- #### Intro
+- Defined exchange: messages
+- The routing keys of the messages in group 1 are prefixed with "group.1"
+- The routing keys of the private messages between user x and user y are prefixed with "user.x.user.y"
+
+- #### Events
+- User 1 joins the chat
+- Connects to the messages exchange
+- The unique queue of this user is created, he will receive messages from here
+- The user opens group 1 and creates a binding to "group.1"
+- Now he can receive the messages from group 1
+- The user opens the private messages of user 2, creates a binding to "user.1.user.2" and deletes the binding of "group.1" (no notifications)
+- Now the user receives messages from user 2 only
+- The user disconnects and the queue is deleted
+
 ### STOMP syntax
 ```
 COMMAND
@@ -15,6 +43,7 @@ The body is optional.
 ### Production
 * Chat group affinity is not needed for small to medium groups, might be necessary for large groups
 * Is the default round-robin load balancer good enough?
+* Inter-cluster communication requires manual setup.
 
 ### Links
 * [spring AMQP introduction](https://docs.spring.io/spring-boot/reference/messaging/amqp.html)
