@@ -20,6 +20,7 @@ class GreetingController {
     @MessageMapping("/hello")
     @SendTo("/topic/greetings")
     fun greeting(message: HelloMessage): Greeting {
+        println("Received message: " + message.name)
         Thread.sleep(1000) // simulated delay
         return Greeting("Hello, " + HtmlUtils.htmlEscape(message.name) + "!")
     }
