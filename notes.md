@@ -26,6 +26,11 @@ and messages are delivered to them in a round-robin fashion.
 - Now the user receives messages from user 2 only
 - The user disconnects and the queue is deleted
 
+### The app
+The app can operate in two modes, basic (single instance) and scalable (rabbitmq).
+
+The mode can be set in application.yaml
+
 ### STOMP syntax
 ```
 COMMAND
@@ -48,5 +53,7 @@ The body is optional.
 ### Links
 * [spring AMQP introduction](https://docs.spring.io/spring-boot/reference/messaging/amqp.html)
 * [spring rabbit MQ](https://spring.io/guides/gs/messaging-rabbitmq)
-* [stomp and spring boot websocker tutorial](https://www.dariawan.com/tutorials/spring/spring-boot-websocket-stomp-tutorial/)
+* [stomp and spring boot websocket tutorial](https://www.dariawan.com/tutorials/spring/spring-boot-websocket-stomp-tutorial/)
 * [spring websocket stomp](https://spring.io/guides/gs/messaging-stomp-websocket)
+* [rabbit MQ docker](https://hub.docker.com/_/rabbitmq)
+* [rabbit MQ stomp](https://www.rabbitmq.com/docs/stomp)

@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: kotlin-chat-test
+
+stomp:
+  broker:
+    relay:
+      port: 61613
+      host: localhost
+
+common:
+  mode: scalable
+
+debug: true

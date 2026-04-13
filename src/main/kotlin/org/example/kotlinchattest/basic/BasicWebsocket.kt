@@ -1,5 +1,6 @@
 package org.example.kotlinchattest.basic
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Configuration
 import org.springframework.messaging.handler.annotation.MessageMapping
 import org.springframework.messaging.handler.annotation.SendTo
@@ -15,6 +16,7 @@ class HelloMessage (var name: String)
 
 class Greeting(val content: String)
 
+@ConditionalOnProperty(name=["common.mode"], havingValue="basic", matchIfMissing=true)
 @Controller
 class GreetingController {
     @MessageMapping("/hello")
@@ -26,6 +28,7 @@ class GreetingController {
     }
 }
 
+@ConditionalOnProperty(name=["common.mode"], havingValue="basic", matchIfMissing=true)
 @Configuration
 @EnableWebSocketMessageBroker
 class WebSocketConfig : WebSocketMessageBrokerConfigurer {
