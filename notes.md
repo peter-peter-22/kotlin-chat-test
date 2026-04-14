@@ -1,8 +1,7 @@
 ### RabbitMQ
 The messages are routed inside the exchange, 
 which then routes them to the appropriate queue(s) 
-based on the binding keys. Each queue can have multiple consumers, 
-and messages are delivered to them in a round-robin fashion.
+based on the binding keys.
 
 - Exchange: A messaging channel, similar to topic.
 - Producer: A process that sends messages to an exchange. The messages have a routing key.
@@ -20,9 +19,9 @@ and messages are delivered to them in a round-robin fashion.
 - User 1 joins the chat
 - Connects to the messages exchange
 - The unique queue of this user is created, he will receive messages from here
-- The user opens group 1 and creates a binding to "group.1"
+- The user opens group 1 and creates a binding to "group.1.#"
 - Now he can receive the messages from group 1
-- The user opens the private messages of user 2, creates a binding to "user.1.user.2" and deletes the binding of "group.1" (no notifications)
+- The user opens the private messages of user 2, creates a binding to "user.1.user.2.#" and deletes the binding of "group.1" (no notifications)
 - Now the user receives messages from user 2 only
 - The user disconnects and the queue is deleted
 
@@ -31,7 +30,11 @@ The app can operate in two modes, basic (single instance) and scalable (rabbitmq
 
 The mode can be set in application.yaml
 
-### STOMP syntax
+### STOMP
+
+A standardized format for endpoints and actions in websocket.
+
+Syntax:
 ```
 COMMAND
 header1:value1
@@ -51,8 +54,9 @@ The body is optional.
 * Inter-cluster communication requires manual setup.
 
 ### Links
-* [spring AMQP introduction](https://docs.spring.io/spring-boot/reference/messaging/amqp.html)
-* [spring rabbit MQ](https://spring.io/guides/gs/messaging-rabbitmq)
+* [spring AMQP by spring](https://docs.spring.io/spring-boot/reference/messaging/amqp.html)
+* [spring AMQP by rabbit](https://www.rabbitmq.com/tutorials/tutorial-one-spring-amqp)
+* [spring rabbit MQ introduction](https://spring.io/guides/gs/messaging-rabbitmq)
 * [stomp and spring boot websocket tutorial](https://www.dariawan.com/tutorials/spring/spring-boot-websocket-stomp-tutorial/)
 * [spring websocket stomp](https://spring.io/guides/gs/messaging-stomp-websocket)
 * [rabbit MQ docker](https://hub.docker.com/_/rabbitmq)

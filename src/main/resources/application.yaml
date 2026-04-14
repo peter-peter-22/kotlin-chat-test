@@ -1,14 +1,15 @@
 spring:
   application:
     name: kotlin-chat-test
-
-stomp:
-  broker:
-    relay:
-      port: 61613
-      host: localhost
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "guest"
+    password: "guest"
+    template:
+      retry:
+        enabled: true
+        initial-interval: "2s"
 
 common:
   mode: scalable
-
-debug: true
