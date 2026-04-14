@@ -24,10 +24,10 @@ class ChatController(private val messagingTemplate: SimpMessagingTemplate) {
     // These are not direct messages between 2 users
     @MessageMapping("/send/direct/{toUser}")
     fun sendDirect(
-        @DestinationVariable toUser: String?,
+        @DestinationVariable toUser: String,
         @Payload message: ChatMessage
     ) {
         println("Sending message to user: $toUser")
-        messagingTemplate.convertAndSend("/topic/user/$toUser", message)
+        messagingTemplate.convertAndSendToUser(toUser, "/queue/direct/", message)
     }
 }

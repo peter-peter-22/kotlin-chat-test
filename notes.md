@@ -57,3 +57,6 @@ The body is optional.
 * [spring websocket stomp](https://spring.io/guides/gs/messaging-stomp-websocket)
 * [rabbit MQ docker](https://hub.docker.com/_/rabbitmq)
 * [rabbit MQ stomp](https://www.rabbitmq.com/docs/stomp)
+* [rabbit MQ tutorial](https://www.rabbitmq.com/tutorials)
+* [rabbit MQ web stomp](https://www.rabbitmq.com/docs/web-stomp)
+* [rabbit MQ java client](https://github.com/rabbitmq/rabbitmq-tutorials/tree/main/java-gradle)
