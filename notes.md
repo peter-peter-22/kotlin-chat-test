@@ -13,17 +13,18 @@ based on the binding keys.
 - #### Intro
 - Defined exchange: messages
 - The routing keys of the messages in group 1 are prefixed with "group.1"
-- The routing keys of the private messages between user x and user y are prefixed with "user.x.user.y"
+- The routing keys of the direct messages of user x are prefixed with "user.x" 
 
 - #### Events
+- The instance connects to the exchange "messages" and creates a queue
 - User 1 joins the chat
-- Connects to the messages exchange
-- The unique queue of this user is created, he will receive messages from here
-- The user opens group 1 and creates a binding to "group.1.#"
-- Now he can receive the messages from group 1
-- The user opens the private messages of user 2, creates a binding to "user.1.user.2.#" and deletes the binding of "group.1" (no notifications)
-- Now the user receives messages from user 2 only
-- The user disconnects and the queue is deleted
+- Binding is created to "user.1.#" 
+- -> now the user can receive direct messages
+- The user opens group 1
+- Binding is created to "group.1.#" if not already exists (one queue per instance) 
+- -> now the user can see the messages of the group
+- The user disconnects
+- The binding of "user.1.#" is removed, "group.1.#" is removed only if no other online user is in the group
 
 ### The app
 The app can operate in two modes, basic (single instance) and scalable (rabbitmq).

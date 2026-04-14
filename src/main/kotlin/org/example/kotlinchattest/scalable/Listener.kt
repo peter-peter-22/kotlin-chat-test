@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service
 
 @Service
 class Listener(
-    private val messagingTemplate: SimpMessagingTemplate
+    private val messagingTemplate: SimpMessagingTemplate,
 ) {
-    @RabbitListener(queues = [RabbitConfig.QUEUE_NAME])
+    @RabbitListener(queues = [RabbitConfig.QUEUE_PLACEHOLDER])
     fun onMessage(message: Message) {
         println("Received message from queue: $message")
         messagingTemplate.convertAndSend("/topic/hello", message)
