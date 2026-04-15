@@ -64,6 +64,11 @@ class UserService(
 
     private fun unregisterUserSession(user: String) {
         println("Unregistering user $user")
+        val userBinding = userBindings[user]
+        if (userBinding != null) {
+            ampqAdmin.removeBinding(userBinding)
+            userBindings.remove(user)
+        }
         for (room in usersToRooms[user] ?: emptySet()) {
             leaveRoom(user, room)
         }
@@ -85,13 +90,14 @@ class UserService(
     }
 
     fun sendToUser(fromUser: String, toUser: String, message: String) {
+        val routingKey = "user.$toUser"
         val event = PrivateMessage(
             content = message,
             sender = fromUser,
             timestamp = System.currentTimeMillis(),
             receiver = toUser,
         )
-        rabbitTemplate.convertAndSend(RabbitConfig.EXCHANGE_NAME, "chat", event)
+        rabbitTemplate.convertAndSend(RabbitConfig.EXCHANGE_NAME, routingKey, event)
     }
 
     fun joinRoom(userId: String, roomId: String) {
@@ -118,7 +124,11 @@ class UserService(
         if (roomsToUsers[roomId]?.size == 0) {
             if (roomBindings.containsKey(roomId)) {
                 println("Removing binding of room $roomId")
-                roomBindings.remove(roomId)
+                val roomBinding = roomBindings[roomId]
+                if (roomBinding != null) {
+                    ampqAdmin.removeBinding(roomBinding)
+                    roomBindings.remove(roomId)
+                }
             } else {
                 println("Binding of room $roomId does not exists")
             }
@@ -127,17 +137,18 @@ class UserService(
 
     fun sendToRoom(roomId: String, fromUser: String, message: String) {
         println("Sending room message to room $roomId")
+        val routingKey = "room.$roomId"
         val event = RoomMessage(
             content = message,
             sender = fromUser,
             timestamp = System.currentTimeMillis(),
             room = roomId
         )
-        rabbitTemplate.convertAndSend(RabbitConfig.EXCHANGE_NAME,"chat", event)
+        rabbitTemplate.convertAndSend(RabbitConfig.EXCHANGE_NAME, routingKey, event)
     }
 
     fun receiveFromRoom(roomId: String, payload: RoomMessage) {
         println("Received room message from room $roomId")
-        messagingTemplate.convertAndSend( "/topic/room.$roomId", payload)
+        messagingTemplate.convertAndSend("/topic/room.$roomId", payload)
     }
 }
