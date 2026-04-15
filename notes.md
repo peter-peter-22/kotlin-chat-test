@@ -50,6 +50,7 @@ This is the intended format of STOMP messages, and it's mentioned in the documen
 The body is optional.
 
 ### Production
+* Fix the race conditions of the UserService bean
 * Limited to medium size, a larger size requires some sharding mechanism.
 * Is the default round-robin load balancer good enough?
 * Inter-cluster communication requires manual setup with the "shovel" mechanism.

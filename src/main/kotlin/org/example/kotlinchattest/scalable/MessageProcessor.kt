@@ -9,20 +9,20 @@ interface MessageProcessor<in T: ListenerDTO> {
 
 @Component
 class PrivateMessageProcessor(
-    private val sessionService: SessionService
+    private val userService: UserService
 ) : MessageProcessor<PrivateMessage> {
     override val type = MessageType.PRIVATE
     override fun process(message: PrivateMessage) {
-        sessionService.sendToUser(message.receiver, message)
+        userService.receiveFromUser(message.receiver, message)
     }
 }
 
 @Component
 class RoomMessageProcessor(
-    private val sessionService: SessionService
+    private val userService: UserService
 ) : MessageProcessor<RoomMessage> {
     override val type = MessageType.ROOM
     override fun process(message: RoomMessage) {
-        print("hello room")
+        userService.receiveFromRoom(message.room, message)
     }
 }
