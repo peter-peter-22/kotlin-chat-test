@@ -18,13 +18,13 @@ based on the binding keys.
 - #### Events
 - The instance connects to the exchange "messages" and creates a queue
 - User 1 joins the chat
-- Binding is created to "user.1.#" 
+- Binding is created to "user.1" 
 - -> now the user can receive direct messages
 - The user opens group 1
-- Binding is created to "group.1.#" if not already exists (one queue per instance) 
+- Binding is created to "group.1" if not already exists (one queue per instance) 
 - -> now the user can see the messages of the group
 - The user disconnects
-- The binding of "user.1.#" is removed, "group.1.#" is removed only if no other online user is in the group
+- The binding of "user.1" is removed, "group.1" is removed only if no other online user is in the group
 
 ### The app
 The app can operate in two modes, basic (single instance) and scalable (rabbitmq).
@@ -52,7 +52,7 @@ The body is optional.
 ### Production
 * Limited to medium size, a larger size requires some sharding mechanism.
 * Is the default round-robin load balancer good enough?
-* Inter-cluster communication requires manual setup.
+* Inter-cluster communication requires manual setup with the "shovel" mechanism.
 
 ### Links
 * [spring AMQP java (and tutorials)](https://docs.spring.io/spring-amqp/reference/introduction/quick-tour.html)
