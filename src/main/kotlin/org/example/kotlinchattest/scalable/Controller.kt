@@ -13,7 +13,13 @@ class Controller(
     @MessageMapping("/hello")
     fun greeting(message: Message): String {
         println("Received message from client: $message")
-        rabbitTemplate.convertAndSend(RabbitConfig.QUEUE_PLACEHOLDER, "chat", message)
+        val event=PrivateMessage(
+            type = "private",
+            content = message.content,
+            sender = message.user,
+            timestamp = message.timestamp
+        )
+        rabbitTemplate.convertAndSend(RabbitConfig.EXCHANGE_NAME, "chat", event)
         return "hello"
     }
 }

@@ -50,11 +50,12 @@ This is the intended format of STOMP messages, and it's mentioned in the documen
 The body is optional.
 
 ### Production
-* Chat group affinity is not needed for small to medium groups, might be necessary for large groups
+* Limited to medium size, a larger size requires some sharding mechanism.
 * Is the default round-robin load balancer good enough?
 * Inter-cluster communication requires manual setup.
 
 ### Links
+* [spring AMQP java (and tutorials)](https://docs.spring.io/spring-amqp/reference/introduction/quick-tour.html)
 * [spring AMQP by spring](https://docs.spring.io/spring-boot/reference/messaging/amqp.html)
 * [spring AMQP by rabbit](https://www.rabbitmq.com/tutorials/tutorial-one-spring-amqp)
 * [spring rabbit MQ introduction](https://spring.io/guides/gs/messaging-rabbitmq)

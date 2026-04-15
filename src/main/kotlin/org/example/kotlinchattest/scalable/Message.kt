@@ -1,6 +1,7 @@
 package org.example.kotlinchattest.scalable
 
-data class Message(
+open class Message(
     val user: String,
-    val content: String
+    val content: String,
+    val timestamp: Long = System.currentTimeMillis()
 )

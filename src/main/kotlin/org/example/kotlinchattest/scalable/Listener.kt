@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service
 @Service
 class Listener(
     private val messagingTemplate: SimpMessagingTemplate,
+    private val rabbitConfig: RabbitConfig
 ) {
-    @RabbitListener(queues = [RabbitConfig.QUEUE_PLACEHOLDER])
-    fun onMessage(message: Message) {
+    @RabbitListener(queues = ["#{chatQueue.name}"]) // Resolves to the only queue name in @RabbitListener
+    fun onMessage(message: ListenerDTO) {
         println("Received message from queue: $message")
+        message.process()
         messagingTemplate.convertAndSend("/topic/hello", message)
     }
 }

@@ -12,12 +12,9 @@ import java.util.UUID
 
 @Configuration
 class RabbitConfig {
-    private val queueName = UUID.randomUUID().toString()
-    private val exchangeName = "chat"
-
     @Bean
     fun chatExchange(): TopicExchange {
-        return TopicExchange(exchangeName, true, false) // durable, not auto-delete
+        return TopicExchange(EXCHANGE_NAME, true, false) // durable, not auto-delete
     }
 
     @Bean
@@ -34,6 +31,7 @@ class RabbitConfig {
     fun messageConverter():MessageConverter = JacksonJsonMessageConverter() // Enable the transfer of JSON messages
 
     companion object{
-        const val QUEUE_PLACEHOLDER="#{chatQueue.name}" // Resolves to the only queue name
+        val queueName = UUID.randomUUID().toString()
+        const val EXCHANGE_NAME = "chat"
     }
 }
